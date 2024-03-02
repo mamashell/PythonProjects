@@ -1,5 +1,5 @@
 #This is the code for a stealth mission game. 
-#You are playing as the theif and working toward stealing a prized artifact.
+#You are playing as the thief and working toward stealing a prized artifact.
 
 player = 0
 guard = 0
@@ -7,7 +7,7 @@ guard = 0
 player_win = 25
 guard_win = 20
 
-print("~~A THEIF IN THE NIGHT~~")
+print("~~A THIEF IN THE NIGHT~~")
 print("You are a theif trying to break into a musuem and steal an artifact that used to belong to your great, great, great, great, great, grandfather. It was donated to the musuem by your crazy uncle who's trying to use the tax deduction from the donation to avoid paying taxes. After staking out the location, you know there's going to be one oblivious guard, and the artifact is under a security mechanism that unlocks about the same time every night. Don't get caught!")
 print("~~RULES~~")
 print("To select your answer, please enter the number associated with the option.")
