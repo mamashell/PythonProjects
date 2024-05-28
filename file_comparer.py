@@ -36,9 +36,11 @@ with open('tropical_fruits.txt') as file_1, open('fruits.txt') as file_2:
 
         # Write headers for the diff sections
         output_file.write("File 1: --- tropical_fruits.txt\n")
-        output_file.write("File 2: +++ fruits.txt\n\n")
+        output_file.write("File 2: +++ fruits.txt\n")
 
         # Write the hunk headers
+        if hunks:
+            output_file.write("\n\nHunk Header (Lines Being Compared):\n")
         for hunk in hunks:
             output_file.write(hunk)
         
