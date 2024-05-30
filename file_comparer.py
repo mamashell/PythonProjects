@@ -6,11 +6,11 @@ File Comparer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 """
   
-with open('tropical_fruits.txt') as file_1, open('fruits.txt') as file_2:
+with open('file_1.txt', 'r') as file_1, open('file_2.txt', 'r') as file_2: # ADJUST FILE NAMES HERE
     lines1 = file_1.readlines()
     lines2 = file_2.readlines()
 
-    diff = list(unified_diff(lines1, lines2, fromfile='tropical_fruits.txt', tofile='fruits.txt'))
+    diff = list(unified_diff(lines1, lines2, fromfile='file_1.txt', tofile='file_2.txt')) # ADJUST FILE NAMES HERE
 
     additions = []
     deletions = []
@@ -35,8 +35,8 @@ with open('tropical_fruits.txt') as file_1, open('fruits.txt') as file_2:
         output_file.write(title + '\n')
 
         # Write headers for the diff sections
-        output_file.write("File 1: --- tropical_fruits.txt\n")
-        output_file.write("File 2: +++ fruits.txt\n")
+        output_file.write("File 1: --- file_1.txt\n") # ADJUST FILE NAME (OPTIONAL)
+        output_file.write("File 2: +++ file_2.txt\n") # ADJUST FILE NAME (OPTIONAL)
 
         # Write the hunk headers
         if hunks:
