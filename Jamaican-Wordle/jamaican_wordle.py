@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import time
 from jamaican_words import *
 from words import *
 
@@ -233,7 +234,6 @@ def display_error_message(message):
 
 # This is the main game loop
 error_message = None  # This is a variable to store the error message
-guesses_changed = len(current_guess_string) == 5 # Variable to track whether the guesses have changed
 guesses_updated = current_guess_string in WORDS
 
 while True:
@@ -243,12 +243,6 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        # if event.type == pygame.VIDEORESIZE:
-        #     WIDTH, HEIGHT = event.dict["size"]
-        #     # recreate screen object required for pygame version 1
-        #     screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
-        #     # TODO: resize image if needed
-        #     center_pos = (WIDTH // 2, HEIGHT // 2)
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 if game_result != "":
@@ -257,47 +251,28 @@ while True:
                     if len(current_guess_string) == 5: 
                         if current_guess_string.lower() in WORDS:
                             check_guess(current_guess)
-                            error_message = None  # Reset error message if a valid word is entered
-                            guesses_changed = True  # Guesses have changed, need to redraw them
                         else:
                             error_message = "Invalid word! Please try again"
+                            if error_message:
+                                display_error_message(error_message)
+                                if guesses_updated:
+                                    error_message = None
+                                    pygame.draw.rect(SCREEN, "white", (0, 0, WIDTH, 100))
+                                    pygame.display.update()
                     else:
                         error_message = "Word must be 5 letters long"
+                        if error_message:
+                                display_error_message(error_message)
+                                if guesses_updated:
+                                    error_message = None
+                                    pygame.draw.rect(SCREEN, "white", (0, 0, WIDTH, 100))
+                                    pygame.display.update()
             elif event.key == pygame.K_BACKSPACE:
                 if len(current_guess_string) > 0:
                     delete_letter()
-                    error_message = None  # Reset error message if backspace is pressed
-                    guesses_changed = True  # Guesses have changed, need to redraw them
             else:
                 key_pressed = event.unicode.upper()
                 if key_pressed in "QWERTYUIOPASDFGHJKLZXCVBNM" and key_pressed != "":
                     if len(current_guess_string) < 5:
                         create_new_letter()
-                        error_message = None  # Reset error message if valid input is entered
-                        guesses_changed = True  # Guesses have changed, need to redraw them
 
-    # SCREEN.fill(0)
-    # SCREEN.blit(PIC, PIC.get_rect(center=CENTER_POS))
-    # pygame.display.update()
-
-    # Display error message if present
-    if error_message:
-        display_error_message(error_message)
-        #guesses_changed = False
-    
-    # Only redraw guesses if they have changed
-    if guesses_updated:
-        # Clear the area where the error message was displayed
-        pygame.draw.rect(SCREEN, "white", (0, 0, WIDTH, 100))
-        pygame.display.update()
-        error_message = None
-
-        # Redraw the tiles after displaying the error message
-        for guess in guesses:
-            for letter in guess:
-                letter.draw()
-
-        # guesses_changed = False  # Reset the flag
-
-    # Update the display
-    # pygame.display.update()
